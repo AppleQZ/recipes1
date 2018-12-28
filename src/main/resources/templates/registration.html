@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/registration.css" th:href="@{/css/registration.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script src="../static/js/bootstrap.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+</head>
+<body>
+<div >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/table}">Back</a>
+            </li>
+        </ul>
+</nav>
+<div class="container">
+    <div class="row">
+                    <form autocomplete="off" action="#" th:action="@{/registration}"
+                  th:object="${user}" method="post" class="form-signin"
+                  role="form">
+                <h2>Registration Form</h2>
+                <div class="form-group">
+                    <div class="mb-3">
+                        <input type="text" th:field="*{name}" placeholder="Name"
+                               class="form-control"/>
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="mb-3">
+                        <input type="text" th:field="*{lastName}"
+                               placeholder="Last Name" class="form-control"/>
+                        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                               class="validation-message"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="mb-3">
+                        <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+
+                        <input type="text" th:field="*{email}" placeholder="Email"
+                               class="form-control"/>
+                    </div>
+                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                class="validation-message"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="mb-3">
+                        <input type="password" th:field="*{password}"
+                               placeholder="Password" class="form-control"/>
+                        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Register User</button>
+                    </div>
+                </div>
+
+                <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+
+            </form>
+            </div>
+</div>
+</div>
+</body>
+</html>
