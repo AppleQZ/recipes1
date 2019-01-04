@@ -38,16 +38,19 @@ public class UserEntity {
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<RoleEntity> roles;
 
-	public UserEntity(User user) {
-		this.email = user.getEmail();
-		this.password = user.getPassword();
-		this.name = user.getName();
-		this.lastName = user.getLastName();
-		this.active = user.getActive();
-		 Set<RoleEntity> usersRole = null;
-		for (Role role:user.getRoles()) {
-			usersRole.add(new RoleEntity(role));
-		}
-		this.roles = usersRole;
+	public UserEntity newUserEntity(User user)
+	{
+		this.setEmail(user.getEmail());
+		this.setName(user.getName());
+		this.setLastName(user.getLastName());
+		this.setPassword(user.getPassword());
+		RoleEntity role = new RoleEntity();
+		role.setId(1);
+		role.setRole("ADMIN");
+		Set<RoleEntity> setRole = new HashSet<>();
+		setRole.add(role);
+		this.setRoles(setRole);
+		this.setActive(1);
+		return this;
 	}
 }

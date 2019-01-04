@@ -1,8 +1,6 @@
 package ponomarev.recipes.entity;
 
 import lombok.Data;
-import ponomarev.recipes.model.Role;
-
 import javax.persistence.*;
 
 @Data
@@ -16,7 +14,6 @@ public class RoleEntity {
 	@Column(name = "role")
 	private String role;
 
-	public RoleEntity(Role role) {
-		this.role = role.getRole();
-	}
+
+
 }

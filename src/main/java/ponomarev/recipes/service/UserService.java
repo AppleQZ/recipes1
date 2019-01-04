@@ -1,22 +1,15 @@
 package ponomarev.recipes.service;
 
-import ponomarev.recipes.entity.RoleEntity;
 import ponomarev.recipes.entity.UserEntity;
-import ponomarev.recipes.model.Role;
 import ponomarev.recipes.model.User;
 import ponomarev.recipes.repository.RoleRepository;
 import ponomarev.recipes.repository.UserRepository;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service("userService")
 public class UserService {
@@ -40,18 +33,23 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
+	public boolean existsUserByEmail(String email)
+	{
+		return Objects.isNull(userRepository.findByEmail(email));
+	}
+
 	public User saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		UserEntity newUser = new UserEntity(user);
-		userRepository.save(newUser);
+UserEntity newUser = new UserEntity();
+		userRepository.save(newUser.newUserEntity(user));
 		return user;
 	}
 
 
 	public List<User> getAllUsers() {
-		List<User> allUsers =new ArrayList<User>();
+		List<User> allUsers =new ArrayList<>();
 		for (UserEntity user:this.userRepository.findAll()) {
-			allUsers.add(new User(user));
+			allUsers.add(new User().newUser(user));
 		}
 		return allUsers;
 	}

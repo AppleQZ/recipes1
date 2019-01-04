@@ -19,7 +19,4 @@ public class Role {
     @Column(name = "role")
     private String role;
 
-    public Role(RoleEntity role) {
-        this.role = role.getRole();
-    }
 }
